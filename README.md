@@ -1,8 +1,8 @@
 # infof409-RARL
-Second session RARL project for the Leaning Dynamics ULB-VUB course
+Second session project for the Leaning Dynamics ULB-VUB course
 
+Based on:
 
-# Dependencies
+[Learning Dynamics and Norm Psychology Supports Human Cooperation in a Large-Scale Prisoner’s Dilemma on Networks](https://www.researchgate.net/publication/328740498_Learning_Dynamics_and_Norm_Psychology_Supports_Human_Cooperation_in_a_Large-Scale_Prisoner's_Dilemma_on_Networks)
 
-https://github.com/rll/rllab
-http://www.mujoco.org/
+Previously about RARL
