@@ -74,19 +74,21 @@ def update(pop, drive, adjmat):
 
 if __name__ == "__main__":
     coop_fracs = []
+    final_drives = []
     for i in range(100):
         coop_fracs.append([])
         pop, drive, adjmat = generate_net()
-        for i in range(1000):
+        for _ in range(1000):
             update(pop, drive, adjmat)
             coop_fracs[i].append(sum(player == "C" for player in pop) / pop.size)
-        with open(f"random_networks_coop_level.pickle", "wb") as f:
-            p.dump(coop_fracs, f)
-        with open(f"random_networks_finaldrives.pickle", "wb") as f:
-            ots = np.array([sum([pop[j] == "C" for j in adjmat[i]])
-                            for i in range(pop.size)])
-            cts = np.array([int(pop[i] == "C")])
-            dnts = wc * (cts - 1) + wo * ots + wi * cts * ots
-            dits = np.array([simulate_play(i, pop, adjmat, val="C") - simulate_play(i, pop, adjmat, val="D")
-                            for i in range(pop.size)])
-            p.dump((drive, dnts, dits), f)
+        ots = np.array([sum([pop[j] == "C" for j in adjmat[i]])
+                        for i in range(pop.size)])
+        cts = np.array([int(pop[i] == "C")])
+        dnts = wc * (cts - 1) + wo * ots + wi * cts * ots
+        dits = np.array([simulate_play(i, pop, adjmat, val="C") - simulate_play(i, pop, adjmat, val="D")
+                        for i in range(pop.size)])
+        final_drives.append((drive, dnts, dits))
+    with open(f"random_networks_coop_level.pickle", "wb") as f:
+        p.dump(coop_fracs, f)
+    with open(f"random_networks_finaldrives.pickle", "wb") as f:
+        p.dump(final_drives, f)
