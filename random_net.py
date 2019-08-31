@@ -1,5 +1,7 @@
 from math import e
 import numpy as np
+import pickle as p
+
 
 strats = ["C", "D"]
 
@@ -71,6 +73,12 @@ def update(pop, drive, adjmat):
 
 
 if __name__ == "__main__":
-    pop, drive, adjmat = generate_net()
-    for i in range(1000):
-        update(pop, drive, adjmat)
+    coop_fracs = []
+    for i in range(100):
+        coop_fracs.append([])
+        pop, drive, adjmat = generate_net()
+        for i in range(1000):
+            update(pop, drive, adjmat)
+            coop_fracs[i].append(sum(player == "C" for player in pop) / pop.size)
+        with open(f"random_networks_data.pickle", "wb") as f:
+            f.write(coop_fracs)
